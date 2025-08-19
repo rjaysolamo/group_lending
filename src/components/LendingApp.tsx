@@ -28,21 +28,21 @@ export function LendingApp() {
       try {
         const parsedState = JSON.parse(savedState)
         // Convert date strings back to Date objects
-        parsedState.users = parsedState.users?.map((user: any) => ({
+        parsedState.users = parsedState.users?.map((user: User & { joinedAt: string }) => ({
           ...user,
           joinedAt: new Date(user.joinedAt)
         })) || []
-        parsedState.capital = parsedState.capital?.map((cap: any) => ({
+        parsedState.capital = parsedState.capital?.map((cap: Capital & { addedAt: string }) => ({
           ...cap,
           addedAt: new Date(cap.addedAt)
         })) || []
-        parsedState.loans = parsedState.loans?.map((loan: any) => ({
+        parsedState.loans = parsedState.loans?.map((loan: Loan & { requestedAt: string; approvedAt?: string; dueDate?: string }) => ({
           ...loan,
           requestedAt: new Date(loan.requestedAt),
           approvedAt: loan.approvedAt ? new Date(loan.approvedAt) : undefined,
           dueDate: loan.dueDate ? new Date(loan.dueDate) : undefined
         })) || []
-        parsedState.payments = parsedState.payments?.map((payment: any) => ({
+        parsedState.payments = parsedState.payments?.map((payment: Payment & { paidAt: string }) => ({
           ...payment,
           paidAt: new Date(payment.paidAt)
         })) || []
